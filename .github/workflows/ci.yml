@@ -26,6 +26,7 @@ jobs:
         run: |
           dotnet test
 
+
   frontend-tests:
     runs-on: ubuntu-latest
     steps:
@@ -52,6 +53,16 @@ jobs:
 
       # Install Playwright browser dependencies for E2E tests
       - run: npx playwright install --with-deps
+
+      # Run the test tasks using Nx
+      # The "-t" flag stands for "target"
+      - run: npx nx run-many -t lint build # test e2e --> comment tests out until you learned how to write unit and e2e tests in Angular
+
+      # Optional: Add self-healing CI with Nx Cloud to automatically fix failures
+      - run: npx nx fix-ci
+        if: always()
+
+
 
 
         
